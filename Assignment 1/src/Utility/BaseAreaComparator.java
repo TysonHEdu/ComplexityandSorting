@@ -10,7 +10,9 @@ public class BaseAreaComparator implements Comparator<Shape> {
 	public int compare(Shape s1, Shape s2) {
 		if(s1.getBaseArea()> s2.getBaseArea())
 			return 1;
-		else if (s1.getBaseArea()>)
+		else if (s1.getBaseArea()> s2.getBaseArea())
+			return -1;
+		return 0;
 	}
 
 }

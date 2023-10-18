@@ -1,5 +1,8 @@
 package Application;
 
+import Utility.BaseAreaComparator;
+import Utility.Sorts;
+import Utility.VolumeComparator;
 import shape.Shape;
 
 public class SortManager {
@@ -30,7 +33,7 @@ public class SortManager {
 		
 		fillShapesArray();
 		sortShapes();
-		printSortedShapes();
+		//printSortedShapes();
 	}
 
 	private void sortShapes() {
@@ -50,7 +53,7 @@ public class SortManager {
 
 	private void fillShapesArray() {
 		// read from data file and populate the shapes array
-		shapes = new Shape[/*the first value from file*/];
+		//shapes = new Shape[the first value from file];
 		
 	}
 	
