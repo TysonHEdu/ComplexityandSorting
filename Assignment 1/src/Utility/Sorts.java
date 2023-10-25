@@ -147,8 +147,46 @@ public class Sorts {
         }
     }
 
-    public static <T extends Comparable<? super T>> void customSort(T[] arr, Comparator<T> comparator)
+        // sort of choice (custom sort)
+    // we'll use selection sort here instead since we've already been provided the example
+    public static <T extends Comparable<? super T>> void mySort(T[] arr)
     {
-        //custom sort here
-	}
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            int pos1 = i;
+            for (int j = i + 1; j < n; j++)
+            {
+            	if (arr[j].compareTo(arr[pos1]) < 0)
+                {
+                    pos1 = j;
+                }
+            }
+            
+            T temp = arr[i];
+            arr[i] = arr[pos1];
+            arr[pos1] = temp;
+        }
+    }
+    
+    public static <T> void mySort(T[] arr, Comparator<? super T> c)
+    {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            int pos1 = i;
+            for (int j = i + 1; j < n; j++)
+            {
+            	if (c.compare(arr[j], arr[pos1]) < 0)
+                {
+                    pos1 = j;
+                }
+            }
+            
+            T temp = arr[i];
+            arr[i] = arr[pos1];
+            arr[pos1] = temp;
+        }
+    }
+    
 }
