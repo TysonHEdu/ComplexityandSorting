@@ -146,5 +146,9 @@ public class Sorts {
             return i + 1;
         }
     }
-    
+
+    public static <T extends Comparable<? super T>> void customSort(T[] arr, Comparator<T> comparator)
+    {
+        //custom sort here
+	}
 }
