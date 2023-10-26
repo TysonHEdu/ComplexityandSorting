@@ -2,6 +2,7 @@ package shape;
 
 public abstract class Prism extends Shape
 {
+    //declare side as a private variable
     private double side;
 
     public Prism(double height, double side) {

@@ -2,6 +2,7 @@ package shape;
 
 public class PentagonalPrism extends Prism
 {
+    //had to declare sideLength as a private variable
     private double sideLength;
 
     public PentagonalPrism(double height, double sideLength)
