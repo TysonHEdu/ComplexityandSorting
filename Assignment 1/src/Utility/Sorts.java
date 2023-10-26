@@ -1,5 +1,5 @@
 package Utility;
-
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class Sorts {
@@ -126,51 +126,48 @@ public class Sorts {
         }
     }
     
-    public class MergeSort<T extends Comparable<? super T>> {
-        public static <T extends Comparable<? super T>> void mergeSort(T[] arr) {
-            int length = arr.length;
-            if (length <= 1)
-                return;
+    public static <T extends Comparable<? super T>> void mergeSort(T[] arr) {
+        int length = arr.length;
+        if (length <= 1)
+            return;
 
-            int middle = length / 2;
-            T[] leftArr = Arrays.copyOfRange(arr, 0, middle);
-            T[] rightArr = Arrays.copyOfRange(arr, middle, length);
+        int middle = length / 2;
+        T[] leftArr = Arrays.copyOfRange(arr, 0, middle);
+        T[] rightArr = Arrays.copyOfRange(arr, middle, length);
 
-            mergeSort(leftArr);
-            mergeSort(rightArr);
-            merge(leftArr, rightArr, arr);
-        }
+        mergeSort(leftArr);
+        mergeSort(rightArr);
+        merge(leftArr, rightArr, arr);
+    }
 
-        private static <T extends Comparable<? super T>> void merge(T[] leftArr, T[] rightArr, T[] arr) {
-            int leftSize = leftArr.length;
-            int rightSize = rightArr.length;
-            int i = 0, l = 0, r = 0;
+    private static <T extends Comparable<? super T>> void merge(T[] leftArr, T[] rightArr, T[] arr) {
+        int leftSize = leftArr.length;
+        int rightSize = rightArr.length;
+        int i = 0, l = 0, r = 0;
 
-            while (l < leftSize && r < rightSize) {
-                if (leftArr[l].compareTo(rightArr[r]) < 0) {
-                    arr[i] = leftArr[l];
-                    i++;
-                    l++;
-                } else {
-                    arr[i] = rightArr[r];
-                    i++;
-                    r++;
-                }
-            }
-
-            while (l < leftSize) {
+        while (l < leftSize && r < rightSize) {
+            if (leftArr[l].compareTo(rightArr[r]) < 0) {
                 arr[i] = leftArr[l];
                 i++;
                 l++;
-            }
-
-            while (r < rightSize) {
+            } else {
                 arr[i] = rightArr[r];
                 i++;
                 r++;
             }
         }
-    }
+
+        while (l < leftSize) {
+            arr[i] = leftArr[l];
+            i++;
+            l++;
+        }
+
+        while (r < rightSize) {
+            arr[i] = rightArr[r];
+            i++;
+            r++;
+        }
 
 
     public static <T> void mergeSort(T[] arr, Comparator<? super T> comparator)
@@ -224,9 +221,8 @@ public class Sorts {
     }
     
 
-    public class QuickSort {
-        public static <T extends Comparable<? super T>> void quickSort(T[] arr)
-        {
+    public static class QuickSort {
+        public static <T extends Comparable<? super T>> void quickSort(T[] arr) {
             qSort(arr, 0, arr.length - 1);
         }
 
@@ -238,14 +234,11 @@ public class Sorts {
             }
         }
 
-        private static <T extends Comparable<? super T>> int partElem(T[] arr, int posA, int posB)
-        {
+        private static <T extends Comparable<? super T>> int partElem(T[] arr, int posA, int posB) {
             T separateValue = arr[posB];
             int i = posA - 1;
-            for (int j = posA; j < posB; j++)
-            {
-                if (arr[j].compareTo(separateValue) < 0)
-                {
+            for (int j = posA; j < posB; j++) {
+                if (arr[j].compareTo(separateValue) < 0) {
                     i++;
                     T temp = arr[i];
                     arr[i] = arr[j];
@@ -257,7 +250,6 @@ public class Sorts {
             arr[posB] = temp;
             return i + 1;
         }
-    }
 
     public static <T extends Comparable<? super T>> void customSort(T[] arr, Comparator<T> comparator)
     {
