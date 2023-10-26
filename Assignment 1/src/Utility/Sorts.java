@@ -255,6 +255,14 @@ public class Sorts {
             return i + 1;
         }
 
+    public class QuickSortC<T extends Comparable<? super T>> implements Comparator<T>
+    {
+        @Override
+        public int compare(T o1, T o2) {
+            return o1.compareTo(o2);
+        }
+    }
+
     public static <T extends Comparable<? super T>> void customSort(T[] arr, Comparator<T> comparator)
     {
         //custom sort here
