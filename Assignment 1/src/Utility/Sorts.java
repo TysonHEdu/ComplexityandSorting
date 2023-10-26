@@ -90,20 +90,39 @@ public class Sorts {
 
     public static <T extends Comparable<? super T>> void selectionSort(T[] arr)
     {
-    	int n = arr.length;
+        int n = arr.length;
         for (int i = 0; i < n - 1; i++)
         {
-            int pos1 = i;
+            int min = i;
             for (int j = i + 1; j < n; j++)
             {
-                if (arr[j].compareTo(arr[pos1]) < 0)
+                if (arr[j].compareTo(arr[min]) < 0)
                 {
-                    pos1 = j;
+                    min = j;
                 }
             }
             T temp = arr[i];
-            arr[i] = arr[pos1];
-            arr[pos1] = temp;
+            arr[i] = arr[min];
+            arr[min] = temp;
+        }
+    }
+    
+    public static <T> void selectionSort(T[] arr, Comparator<? super T> comparator)
+    {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            int min = i;
+            for (int j = i + 1; j < n; j++)
+            {
+                if (comparator.compare(arr[j], arr[min]) < 0)
+                {
+                    min = j;
+                }
+            }
+            T temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
         }
     }
 
