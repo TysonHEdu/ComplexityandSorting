@@ -58,15 +58,15 @@ public class Sorts {
             int n = arr.length;
             for (int i = 1; i < n; i++)
             {
-                T insertedValue = arr[i];
+                T shapeValue = arr[i];
                 int j = i - 1;
-                while (j >= 0 && arr[j].compareTo(insertedValue) > 0)
+                while (j >= 0 && arr[j].compareTo(shapeValue) > 0)
                 {
                     arr[j + 1] = arr[j];
                     j--;
                 }
                 
-                arr[j + 1] = insertedValue;
+                arr[j + 1] = shapeValue;
             }
     }
     
@@ -75,15 +75,15 @@ public class Sorts {
         int n = arr.length;
         for (int i = 1; i < n; i++)
         {
-            T insertedValue = arr[i];
+            T shapeValue = arr[i];
             int j = i - 1;
-            while (j >= 0 && comparator.compare(arr[j], insertedValue) > 0)
+            while (j >= 0 && comparator.compare(arr[j], shapeValue) > 0)
             {
                 arr[j + 1] = arr[j];
                 j--;
             }
             
-            arr[j + 1] = insertedValue;
+            arr[j + 1] = shapeValue;
         }
     }
     
@@ -125,13 +125,106 @@ public class Sorts {
             arr[min] = temp;
         }
     }
+    
+    public class MergeSort<T extends Comparable<? super T>> {
+        public static <T extends Comparable<? super T>> void mergeSort(T[] arr) {
+            int length = arr.length;
+            if (length <= 1)
+                return;
 
-    public static <T extends Comparable<? super T>> void mergeSort(T[] arr)
-    {
-        //merge sort
+            int middle = length / 2;
+            T[] leftArr = Arrays.copyOfRange(arr, 0, middle);
+            T[] rightArr = Arrays.copyOfRange(arr, middle, length);
+
+            mergeSort(leftArr);
+            mergeSort(rightArr);
+            merge(leftArr, rightArr, arr);
+        }
+
+        private static <T extends Comparable<? super T>> void merge(T[] leftArr, T[] rightArr, T[] arr) {
+            int leftSize = leftArr.length;
+            int rightSize = rightArr.length;
+            int i = 0, l = 0, r = 0;
+
+            while (l < leftSize && r < rightSize) {
+                if (leftArr[l].compareTo(rightArr[r]) < 0) {
+                    arr[i] = leftArr[l];
+                    i++;
+                    l++;
+                } else {
+                    arr[i] = rightArr[r];
+                    i++;
+                    r++;
+                }
+            }
+
+            while (l < leftSize) {
+                arr[i] = leftArr[l];
+                i++;
+                l++;
+            }
+
+            while (r < rightSize) {
+                arr[i] = rightArr[r];
+                i++;
+                r++;
+            }
+        }
     }
 
-    public static class QuickSort {
+
+    public static <T> void mergeSort(T[] arr, Comparator<? super T> comparator)
+    {
+        int length = arr.length;
+        if (length <= 1) return;
+
+        int middle = length / 2;
+        T[] leftArr = Arrays.copyOfRange(arr, 0, middle);
+        T[] rightArr = Arrays.copyOfRange(arr, middle, length);
+
+        mergeSort(leftArr, comparator);
+        mergeSort(rightArr, comparator);
+        merge(leftArr, rightArr, arr, comparator);
+    }
+
+    private static <T> void merge(T[] leftArr, T[] rightArr, T[] arr, Comparator<? super T> comparator)
+    {
+        int leftSize = leftArr.length;
+        int rightSize = rightArr.length;
+        
+        int i = 0, l = 0, r = 0;
+
+        while (l < leftSize && r < rightSize)
+        {
+            if (comparator.compare(leftArr[l], rightArr[r]) < 0)
+            {
+                arr[i] = leftArr[l];
+                i++;
+                l++;
+            } else {
+                arr[i] = rightArr[r];
+                i++;
+                r++;
+            }
+        }
+
+        while (l < leftSize)
+        {
+            arr[i] = leftArr[l];
+            i++;
+            l++;
+        }
+
+        while (r < rightSize)
+        {
+            arr[i] = rightArr[r];
+            i++;
+            r++;
+        }
+    }
+    
+
+    public class QuickSort {
         public static <T extends Comparable<? super T>> void quickSort(T[] arr)
         {
             qSort(arr, 0, arr.length - 1);
@@ -169,5 +262,4 @@ public class Sorts {
     public static <T extends Comparable<? super T>> void customSort(T[] arr, Comparator<T> comparator)
     {
         //custom sort here
-	}
-}
+    }
