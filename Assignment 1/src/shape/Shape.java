@@ -3,7 +3,7 @@ package shape;
 public abstract class Shape implements Comparable<Shape>
 {
 	//attribute(s)/data field(s)
-	private double height;
+	protected double height;
 
 	//constructor
 	public Shape(double height) 

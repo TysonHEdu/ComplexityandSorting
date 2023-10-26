@@ -140,12 +140,14 @@ public class Sorts {
         merge(leftArr, rightArr, arr);
     }
 
-    private static <T extends Comparable<? super T>> void merge(T[] leftArr, T[] rightArr, T[] arr) {
+    private static <T extends Comparable<? super T>> void merge(T[] leftArr, T[] rightArr, T[] arr)
+    {
         int leftSize = leftArr.length;
         int rightSize = rightArr.length;
         int i = 0, l = 0, r = 0;
 
-        while (l < leftSize && r < rightSize) {
+        while (l < leftSize && r < rightSize)
+        {
             if (leftArr[l].compareTo(rightArr[r]) < 0) {
                 arr[i] = leftArr[l];
                 i++;
@@ -157,18 +159,20 @@ public class Sorts {
             }
         }
 
-        while (l < leftSize) {
+        while (l < leftSize)
+        {
             arr[i] = leftArr[l];
             i++;
             l++;
         }
 
-        while (r < rightSize) {
+        while (r < rightSize)
+        {
             arr[i] = rightArr[r];
             i++;
             r++;
         }
-
+    }
 
     public static <T> void mergeSort(T[] arr, Comparator<? super T> comparator)
     {
@@ -255,3 +259,7 @@ public class Sorts {
     {
         //custom sort here
     }
+
+
+}
+}
