@@ -2,58 +2,63 @@ package Utility;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class Sorts {
-	public static <T extends Comparable<? super T>> void bubbleSort(T[] arr)
-	{
-		int i, j; 
-		T temp;
-		boolean swapped = false;
-		for (i = 0; i < arr.length- 1; i++) {
-			swapped = false;
-			for (j = 0; j <  arr.length - i - 1; j++) {
-				//if (arr[j] > arr[j + 1]) {
-				if (arr[j].compareTo(arr[j+1]) > 0)
-				{
-					// Swap arr[j] and arr[j+1]
-					temp = arr[j];
-					arr[j] = arr[j +1];
-					arr[j + 1] = temp;
-					swapped = true;
-				}
-			}
-			// If no two elements were swapped by inner loop then break
-			if (swapped == false)
-				break;
-		}
-	}
-	
-	public static <T> void bubbleSort(T[] arr, Comparator<? super T> c)
-	{
-		int i, j; 
-		T temp;
-		boolean swapped = false;
-		for (i = 0; i < arr.length- 1; i++) {
-			swapped = false;
-			for (j = 0; j <  arr.length - i - 1; j++) {
-				//if (arr[j] > arr[j + 1]) {
-				if (c.compare(arr[j], arr[j+1]) > 0)
-				{
-						
-				
-					// Swap arr[j] and arr[j+1]
-					temp = arr[j];
-					arr[j] = arr[j +1];
-					arr[j + 1] = temp;
-					swapped = true;
-				}
-			}
-			// If no two elements were swapped by inner loop then break
-			if (swapped == false)
-				break;
-		}
-	}
+import shape.Shape;
 
-	public static <T extends Comparable<? super T>> void insertionSort(T[] arr)
+public class Sorts
+{
+    public static <T extends Comparable<? super T>> void bubbleSort(T[] arr)
+    {
+    	int i, j;
+    	T temp;
+    	boolean swapped = false;
+    	for (i = 0; i < arr.length -1 ; i++)
+    	{
+    		swapped = false;
+    		for (j = 0; j < arr.length - i -1; j++)
+    		{
+    			if (arr[j].compareTo(arr[j + 1]) > 0)
+    			{
+    				temp = arr[j];
+    				arr[j] = arr[ j + 1];
+    				arr[j + 1] = temp;
+    				swapped = true;
+    			}
+    		}
+    		if (!swapped)
+    		{
+    			break;
+    		}
+    	}
+    }
+    
+    public static <T> void bubbleSort(Shape[] shapes, BaseAreaComparator baseAreaComparator)
+    {
+    	int i, j;
+    	Shape temp;
+    	boolean swapped = false;
+    	for (i = 0; i < shapes.length - 1 ; i++)
+    	{
+    		swapped = false;
+    		for (j = 0; j < shapes.length - i -1; j++)
+    		{
+    			if (baseAreaComparator.compare(shapes[j], shapes[j + 1]) > 0)
+    			{
+    				temp = shapes[j];
+    				shapes[j] = shapes[ j + 1];
+    				shapes[j + 1] = temp;
+    				swapped = true;
+    			}
+    		}
+    		
+    		if (!swapped)
+    		{
+    			break;
+    		}
+    	}
+    }
+    
+
+    public static <T extends Comparable<? super T>> void insertionSort(T[] arr)
     {
             int n = arr.length;
             for (int i = 1; i < n; i++)
@@ -70,20 +75,20 @@ public class Sorts {
             }
     }
     
-    public static <T> void insertionSort(T[] arr, Comparator<? super T> comparator)
+    public static <T> void insertionSort(Shape[] shapes, BaseAreaComparator baseAreaComparator)
     {
-        int n = arr.length;
+        int n = shapes.length;
         for (int i = 1; i < n; i++)
         {
-            T shapeValue = arr[i];
+            Shape shapeValue = shapes[i];
             int j = i - 1;
-            while (j >= 0 && comparator.compare(arr[j], shapeValue) > 0)
+            while (j >= 0 && baseAreaComparator.compare(shapes[j], shapeValue) > 0)
             {
-                arr[j + 1] = arr[j];
+                shapes[j + 1] = shapes[j];
                 j--;
             }
             
-            arr[j + 1] = shapeValue;
+            shapes[j + 1] = shapeValue;
         }
     }
     
@@ -107,22 +112,22 @@ public class Sorts {
         }
     }
     
-    public static <T> void selectionSort(T[] arr, Comparator<? super T> comparator)
+    public static <T> void selectionSort(Shape[] shapes, BaseAreaComparator baseAreaComparator)
     {
-        int n = arr.length;
+        int n = shapes.length;
         for (int i = 0; i < n - 1; i++)
         {
             int min = i;
             for (int j = i + 1; j < n; j++)
             {
-                if (comparator.compare(arr[j], arr[min]) < 0)
+                if (baseAreaComparator.compare(shapes[j], shapes[min]) < 0)
                 {
                     min = j;
                 }
             }
-            T temp = arr[i];
-            arr[i] = arr[min];
-            arr[min] = temp;
+            Shape temp = shapes[i];
+            shapes[i] = shapes[min];
+            shapes[min] = temp;
         }
     }
     
@@ -140,14 +145,12 @@ public class Sorts {
         merge(leftArr, rightArr, arr);
     }
 
-    private static <T extends Comparable<? super T>> void merge(T[] leftArr, T[] rightArr, T[] arr)
-    {
+    private static <T extends Comparable<? super T>> void merge(T[] leftArr, T[] rightArr, T[] arr) {
         int leftSize = leftArr.length;
         int rightSize = rightArr.length;
         int i = 0, l = 0, r = 0;
 
-        while (l < leftSize && r < rightSize)
-        {
+        while (l < leftSize && r < rightSize) {
             if (leftArr[l].compareTo(rightArr[r]) < 0) {
                 arr[i] = leftArr[l];
                 i++;
@@ -159,36 +162,34 @@ public class Sorts {
             }
         }
 
-        while (l < leftSize)
-        {
+        while (l < leftSize) {
             arr[i] = leftArr[l];
             i++;
             l++;
         }
 
-        while (r < rightSize)
-        {
+        while (r < rightSize) {
             arr[i] = rightArr[r];
             i++;
             r++;
         }
     }
 
-    public static <T> void mergeSort(T[] arr, Comparator<? super T> comparator)
+    public static <T> void mergeSort(Shape[] shapes, BaseAreaComparator baseAreaComparator)
     {
-        int length = arr.length;
+        int length = shapes.length;
         if (length <= 1) return;
 
         int middle = length / 2;
-        T[] leftArr = Arrays.copyOfRange(arr, 0, middle);
-        T[] rightArr = Arrays.copyOfRange(arr, middle, length);
+        Shape[] leftArr = Arrays.copyOfRange(shapes, 0, middle);
+        Shape[] rightArr = Arrays.copyOfRange(shapes, middle, length);
 
-        mergeSort(leftArr, comparator);
-        mergeSort(rightArr, comparator);
-        merge(leftArr, rightArr, arr, comparator);
+        mergeSort(leftArr, baseAreaComparator);
+        mergeSort(rightArr, baseAreaComparator);
+        merge(leftArr, rightArr, shapes, baseAreaComparator);
     }
 
-    private static <T> void merge(T[] leftArr, T[] rightArr, T[] arr, Comparator<? super T> comparator)
+    private static <T> void merge(Shape[] leftArr, Shape[] rightArr, Shape[] shapes, BaseAreaComparator baseAreaComparator)
     {
         int leftSize = leftArr.length;
         int rightSize = rightArr.length;
@@ -197,13 +198,13 @@ public class Sorts {
 
         while (l < leftSize && r < rightSize)
         {
-            if (comparator.compare(leftArr[l], rightArr[r]) < 0)
+            if (baseAreaComparator.compare(leftArr[l], rightArr[r]) < 0)
             {
-                arr[i] = leftArr[l];
+                shapes[i] = leftArr[l];
                 i++;
                 l++;
             } else {
-                arr[i] = rightArr[r];
+                shapes[i] = rightArr[r];
                 i++;
                 r++;
             }
@@ -211,14 +212,14 @@ public class Sorts {
 
         while (l < leftSize)
         {
-            arr[i] = leftArr[l];
+            shapes[i] = leftArr[l];
             i++;
             l++;
         }
 
         while (r < rightSize)
         {
-            arr[i] = rightArr[r];
+            shapes[i] = rightArr[r];
             i++;
             r++;
         }
@@ -254,7 +255,8 @@ public class Sorts {
             arr[posB] = temp;
             return i + 1;
         }
-
+    }
+    
     public class QuickSortC<T extends Comparable<? super T>> implements Comparator<T>
     {
         @Override
@@ -263,12 +265,10 @@ public class Sorts {
         }
     }
 
-    //insert custom sort here (which we don't have at the moment)
+
     public static <T extends Comparable<? super T>> void customSort(T[] arr, Comparator<T> comparator)
     {
-        
+        //custom sort here
     }
 
-
-}
 }

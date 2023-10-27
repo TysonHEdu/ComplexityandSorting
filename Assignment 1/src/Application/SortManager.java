@@ -3,10 +3,10 @@ package Application;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import Utitlity.BaseAreaComparator;
-import Utitlity.Sorts;
-import Utitlity.VolumeComparator;
-import shape.Shape;
+
+import Utility.BaseAreaComparator;
+import Utility.VolumeComparator;
+import shape.*;
 
 public class SortManager {
     private String fileName;
@@ -69,42 +69,56 @@ public class SortManager {
         }
     }
 
-	private void fillShapesArray() {
-	    try (BufferedReader reader = new BufferedReader(new FileReader("polyNameBIG.txt"))) {
-	        int shapeFound = Integer.parseInt(reader.readLine().trim());
-	        shapes = new Shape[shapeFound];
+	private void fillShapesArray()
+	{
+		try (BufferedReader reader = new BufferedReader(new FileReader("polyNameBIG.txt")))
+		{
+			int shapeFound = Integer.parseInt(reader.readLine().trim());
+			shapes = new Shape[shapeFound];
 
-	        for (int i = 0; i < shapeFound; i++) {
-	            String line = reader.readLine();
-	            String[] parts = line.split(" ");
-	            String shapeType = parts[0];
-	            double attribute1 = Double.parseDouble(parts[1]);
+			for (int i = 0; i < shapeFound; i++) {
+				String line = reader.readLine();
+				String[] parts = line.split(" ");
+				String shapeType = parts[0];
+				double radius = Double.parseDouble(parts[1]);
+				double sideLength = Double.parseDouble(parts[2]);
+				double height = Double.parseDouble(parts[3]);
+				Shape shape = null;
 
-	            Shape shape;
-	            
-	           //use if else for the parsed data
-	            if (shapeType.equals("Cylinder"))
-	            {
-	                shape = new Cylinder(radius);
-	            /*
-	            } else if (shapeType.equals("OctagonalPrism"))
-	            {
-	                shape = new OctagonalPrism(length, height);
-	            }
-	            */
-    	        } else
-    	        {
-                    System.out.println("Unknown shape type: " + shapeType);
-                    shape = null;
-                }
-    	        
-	            shapes[i] = shape;
-        }
-	        
-    } catch (IOException e)
-	    {
-        	e.printStackTrace();
+				if (shapeType.equals("Cylinder")) {
+					shape = new Cylinder(radius);
+				} else if (shapeType.equals("OctagonalPrism")) {
+					double sideLength = Double.parseDouble(parts[2]);
+					double height = Double.parseDouble(parts[3]);
+					shape = new OctagonalPrism(sideLength, height);
+				} else if (shapeType.equals("PentagonalPrism")) {
+					double sideLength = Double.parseDouble(parts[2]);
+					double height = Double.parseDouble(parts[3]);
+					shape = new PentagonalPrism(sideLength, height);
+				} else if (shapeType.equals("Cone")) {
+					double radius = Double.parseDouble(parts[2]);
+					double height = Double.parseDouble(parts[3]);
+					shape = new Cone(radius);
+				} else if (shapeType.equals("SquarePrism")) {
+					double sideLength = Double.parseDouble(parts[2]);
+					double height = Double.parseDouble(parts[3]);
+					shape = new SquarePrism(sideLength, height);
+				} else if (shapeType.equals("TriangularPrism")) {
+					double sideLength = Double.parseDouble(parts[2]);
+					double height = Double.parseDouble(parts[3]);
+					shape = new TriangularPrism(sideLength, height);
+				} else {
+					System.out.println("Unknown shape type: " + shapeType);
+				}
 
-        }
-    }
+				shapes[i] = shape;
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			// Handle any IO exceptions here.
+		}
+	}
+
 }
+
