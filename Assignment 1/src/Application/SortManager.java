@@ -1,60 +1,110 @@
 package Application;
 
-import Utility.BaseAreaComparator;
-import Utility.Sorts;
-import Utility.VolumeComparator;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import Utitlity.BaseAreaComparator;
+import Utitlity.Sorts;
+import Utitlity.VolumeComparator;
 import shape.Shape;
 
 public class SortManager {
-	private String fileName;
-	private char compareType;
-	private char sortType;
-	private Shape[] shapes;
+    private String fileName;
+    private char compareType;
+    private char sortType;
+    private Shape[] shapes;
 
-	public SortManager(String[] args)
-	{
-		if(args[0].toLowerCase().startsWith("-f"))
-		{
-			fileName = args[0].substring(2);
-		}
-		else if (args[1].toLowerCase().startsWith("-f"))
-		{
-			fileName = args[1].substring(2);
-		}
-		else if (args[2].toLowerCase().startsWith("-f"))
-		{
-			fileName = args[2].substring(2);
-		}
-		if (args[0].toLowerCase().startsWith("-t"))
-		{
-			compareType = args[0].substring(2).charAt(0);
-		}
-		//..........
-		
-		fillShapesArray();
-		sortShapes();
-		//printSortedShapes();
-	}
+    public SortManager(String[] args)
+    {
+        fileName = "";
+        compareType = ' '; // Will be the default value
+        sortType = 'B'; //will be the default value
 
-	private void sortShapes() {
-		if(sortType == 'B' || sortType == 'b')
-		{
-			if(compareType == 'H' || compareType == 'h')
-			{
-				Sorts.bubbleSort(shapes, new BaseAreaComparator());
-			}
-			else if (compareType == 'V' || compareType == 'v')
-			{
-					Sorts.bubbleSort(shapes, new VolumeComparator());
-			}
-		}
-		
-	}
+
+        for (String arg : args) {
+            if (arg.toLowerCase().startsWith("-f")) {
+                fileName = arg.substring(2);
+            } else if (arg.toLowerCase().startsWith("-t")) {
+                compareType = arg.charAt(2);
+            } else if (arg.toLowerCase().startsWith("-s")) {
+                sortType = arg.charAt(2);
+            }
+        }
+
+        fillShapesArray();
+        sortShapes();
+    }
+
+    private void sortShapes() {
+        if (sortType == 'B' || sortType == 'b') {
+            if (compareType == 'H' || compareType == 'h') {
+                Sorts.bubbleSort(shapes, new BaseAreaComparator());
+            } else if (compareType == 'V' || compareType == 'v') {
+                Sorts.bubbleSort(shapes, new VolumeComparator());
+            }
+        } else if (sortType == 'I' || sortType == 'i') {
+            if (compareType == 'H' || compareType == 'h') {
+                Sorts.insertionSort(shapes, new BaseAreaComparator());
+            } else if (compareType == 'V' || compareType == 'v') {
+                Sorts.insertionSort(shapes, new VolumeComparator());
+            }
+        } else if (sortType == 'S' || sortType == 's') {
+            if (compareType == 'H' || compareType == 'h') {
+                Sorts.selectionSort(shapes, new BaseAreaComparator());
+            } else if (compareType == 'V' || compareType == 'v') {
+                Sorts.selectionSort(shapes, new VolumeComparator());
+            }
+        } else if (sortType == 'M' || sortType == 'm') {
+            if (compareType == 'H' || compareType == 'h') {
+                Sorts.mergeSort(shapes, new BaseAreaComparator());
+            } else if (compareType == 'V' || compareType == 'v') {
+                Sorts.mergeSort(shapes, new VolumeComparator());
+            }
+        } else if (sortType == 'Q' || sortType == 'q') {
+            if (compareType == 'H' || compareType == 'h') {
+                Sorts.quickSort(shapes, new BaseAreaComparator());
+            } else if (compareType == 'V' || compareType == 'v') {
+                Sorts.quickSort(shapes, new VolumeComparator());
+            }
+        }
+    }
 
 	private void fillShapesArray() {
-		// read from data file and populate the shapes array
-		//shapes = new Shape[the first value from file];
-		
-	}
-	
+	    try (BufferedReader reader = new BufferedReader(new FileReader("polyNameBIG.txt"))) {
+	        int shapeFound = Integer.parseInt(reader.readLine().trim());
+	        shapes = new Shape[shapeFound];
+
+	        for (int i = 0; i < shapeFound; i++) {
+	            String line = reader.readLine();
+	            String[] parts = line.split(" ");
+	            String shapeType = parts[0];
+	            double attribute1 = Double.parseDouble(parts[1]);
+
+	            Shape shape;
+	            
+	           //use if else for the parsed data
+	            if (shapeType.equals("Cylinder"))
+	            {
+	                shape = new Cylinder(radius);
+	            /*
+	            } else if (shapeType.equals("OctagonalPrism"))
+	            {
+	                shape = new OctagonalPrism(length, height);
+	            }
+	            */
+    	        } else
+    	        {
+                    System.out.println("Unknown shape type: " + shapeType);
+                    shape = null;
+                }
+    	        
+	            shapes[i] = shape;
+        }
+	        
+    } catch (IOException e)
+	    {
+        	e.printStackTrace();
+
+        }
+    }
 }
