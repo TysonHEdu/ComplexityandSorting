@@ -38,33 +38,33 @@ public class SortManager {
     private void sortShapes() {
         if (sortType == 'B' || sortType == 'b') {
             if (compareType == 'H' || compareType == 'h') {
-                Sorts.bubbleSort(shapes, new BaseAreaComparator());
+                bubbleSort(shapes, new BaseAreaComparator());
             } else if (compareType == 'V' || compareType == 'v') {
-                Sorts.bubbleSort(shapes, new VolumeComparator());
+                bubbleSort(shapes, new VolumeComparator());
             }
         } else if (sortType == 'I' || sortType == 'i') {
             if (compareType == 'H' || compareType == 'h') {
-                Sorts.insertionSort(shapes, new BaseAreaComparator());
+                insertionSort(shapes, new BaseAreaComparator());
             } else if (compareType == 'V' || compareType == 'v') {
-                Sorts.insertionSort(shapes, new VolumeComparator());
+                insertionSort(shapes, new VolumeComparator());
             }
         } else if (sortType == 'S' || sortType == 's') {
             if (compareType == 'H' || compareType == 'h') {
-                Sorts.selectionSort(shapes, new BaseAreaComparator());
+                selectionSort(shapes, new BaseAreaComparator());
             } else if (compareType == 'V' || compareType == 'v') {
-                Sorts.selectionSort(shapes, new VolumeComparator());
+                selectionSort(shapes, new VolumeComparator());
             }
         } else if (sortType == 'M' || sortType == 'm') {
             if (compareType == 'H' || compareType == 'h') {
-                Sorts.mergeSort(shapes, new BaseAreaComparator());
+                mergeSort(shapes, new BaseAreaComparator());
             } else if (compareType == 'V' || compareType == 'v') {
-                Sorts.mergeSort(shapes, new VolumeComparator());
+                mergeSort(shapes, new VolumeComparator());
             }
         } else if (sortType == 'Q' || sortType == 'q') {
             if (compareType == 'H' || compareType == 'h') {
-                Sorts.quickSort(shapes, new BaseAreaComparator());
+                quickSort(shapes, new BaseAreaComparator());
             } else if (compareType == 'V' || compareType == 'v') {
-                Sorts.quickSort(shapes, new VolumeComparator());
+                quickSort(shapes, new VolumeComparator());
             }
         }
     }
